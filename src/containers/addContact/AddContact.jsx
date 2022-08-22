@@ -1,6 +1,10 @@
 import React from "react";
 import styles from "./AddContact.module.scss";
 import { Form, Button, Checkbox, Input, Select } from "antd";
+import { useContacts } from "../../context";
+import { toast } from "react-toastify";
+import CountryPhoneInput, { ConfigProvider } from "antd-country-phone-input";
+import en from "world_countries_lists/data/countries/en/world.json";
 const AddContact = () => {
   // const [form] = Form.useForm()
 
@@ -9,13 +13,28 @@ const AddContact = () => {
   //     ad:'Elxan'
   //   })
   // }
-  const onFinish = (values) =>{
-    const newValues = {
-      id:2,
-      ...values
+  const { state, dispatch } = useContacts();
+  const gentId = (state) => {
+    if (state.length === 0) {
+      return 1;
     }
-    localStorage.setItem('USERS',JSON.stringify([newValues]))
-  }
+    return state.sort((a, b) => b.id - a.id)[0].id + 1;
+  };
+  const onFinish = (values) => {
+    const checkMail = state.find((user) => user.email === values.email);
+    if (checkMail) {
+      return toast.warning("Bu mail var");
+    }
+    const newValues = {
+      id: gentId(state),
+      key: gentId(state),
+      ...values,
+    };
+    dispatch({
+      type: "ADD_CONTACTS",
+      payload: newValues,
+    });
+  };
   return (
     <div className={styles.addContainer}>
       <Form labelCol={{ span: 3 }} onFinish={onFinish}>
@@ -67,6 +86,20 @@ const AddContact = () => {
         >
           <Input placeholder="Ata adinizi qeyd edin" />
         </Form.Item>
+        <ConfigProvider locale={en}>
+          <Form.Item
+            name="phoneNumber"
+            label="Nomre"
+            rules={[
+              {
+                required: true,
+                message: "Nomrenizi qeyd edin zehmet olmasa",
+              },
+            ]}
+          >
+            <CountryPhoneInput />
+          </Form.Item>
+        </ConfigProvider>
         <Form.Item
           name="email"
           label="E-mail"
@@ -76,8 +109,8 @@ const AddContact = () => {
               message: "Emailinizi qeyd edin zehmet olmasa",
             },
             {
-              type:'email',
-              message:'e-poçt etibarlı e-poçt deyil'
+              type: "email",
+              message: "e-poçt etibarlı e-poçt deyil",
             },
           ]}
         >
@@ -104,12 +137,18 @@ const AddContact = () => {
             <Select.Option value="muellim">Muellim</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item name="raziliq" className={styles.raziliq} rules={[
+        <Form.Item
+          name="raziliq"
+          className={styles.raziliq}
+          rules={[
             {
               defaultChecked: true,
             },
-          ]}>
-          <Checkbox checked={false}>Yeniliklər barədə məlumat almaq isdeyirem</Checkbox>
+          ]}
+        >
+          <Checkbox checked={false}>
+            Yeniliklər barədə məlumat almaq isdeyirem
+          </Checkbox>
         </Form.Item>
         <Form.Item>
           <Button block type="primary" htmlType="submit">

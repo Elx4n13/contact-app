@@ -1,11 +1,11 @@
-*{
-  box-sizing: border-box ;
-  margin: 0 ;
-  padding: 0 ;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-a{
+a {
   text-decoration: none;
 }
-#root{
+#root {
   background-color: rgb(138, 120, 96);
 }
