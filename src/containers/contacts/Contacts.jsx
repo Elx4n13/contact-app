@@ -12,7 +12,7 @@ import { useContacts } from "../../context";
 const Contacts = () => {
   const navigate = useNavigate();
   const { state } = useContacts();
-  const data = state;
+  const data = state.sort((a, b) => b.id - a.id);;
   const columns = [
     {
       title: "AD",

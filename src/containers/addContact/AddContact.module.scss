@@ -2,11 +2,35 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: white;
+  background: rgb(63, 94, 251);
+  background: radial-gradient(
+    circle,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(252, 70, 107, 1) 100%
+  );
   form {
     width: 50%;
+    height: fit-content;
+    border-radius: 33px;
+    padding-top: 42px;
+    margin-top: 50px;
+    padding-right: 42px;
+    background: white;
+margin-bottom: 50px;
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
     .raziliq {
       margin-left: 13%;
+    }
+    .addButton {
+      padding-left: 42px;
     }
   }
 }
