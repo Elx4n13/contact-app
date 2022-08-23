@@ -1,25 +1,17 @@
 import React from "react";
 import styles from "./Contacts.module.scss";
 import { Table, Input, Button } from "antd";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, SearchOutlined } from "@ant-design/icons";
 import Info from "../../components/Info/info";
 import { useNavigate } from "react-router-dom";
 import { useContacts } from "../../context";
 import "./Contacts.css";
+import Delete from "../../components/Delete/Delete";
 const Contacts = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useContacts();
+  const { state } = useContacts();
   const data = state.sort((a, b) => b.id - a.id);
-  const deleteItem = (id) => {
-    dispatch({
-      type: "DELETE_CONTACT",
-      payload: id,
-    });
-  };
+
   const columns = [
     {
       title: "AD",
@@ -198,10 +190,7 @@ const Contacts = () => {
               }}
               className={styles.editIcon}
             />
-            <DeleteOutlined
-              className={styles.deleteIcon}
-              onClick={() => deleteItem(record.id)}
-            />
+            <Delete id={record.id} />
           </div>
         );
       },

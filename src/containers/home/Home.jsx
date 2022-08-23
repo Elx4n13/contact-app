@@ -3,18 +3,14 @@ import styles from "./Home.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useContacts } from "../../context";
 import Info from "../../components/Info/info";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Empty from "../../components/Empty/Empty";
+import Delete from "../../components/Delete/Delete";
 const Home = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useContacts();
-  const deleteItem = (id) => {
-    dispatch({
-      type: "DELETE_CONTACT",
-      payload: id,
-    });
-  };
+  const { state } = useContacts();
+
   return (
     <div className={styles.homeContainer}>
       <div className={styles.cardsContainer}>
@@ -58,10 +54,7 @@ const Home = () => {
                     />
                   </div>
                   <div className={styles.deleteIconDiv}>
-                    <DeleteOutlined
-                      className={styles.deleteIcon}
-                      onClick={() => deleteItem(user.id)}
-                    />
+                    <Delete id={user.id} />
                   </div>
                 </div>
               </div>
