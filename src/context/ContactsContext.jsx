@@ -4,11 +4,6 @@ import { ContactsReducer } from "../reducer";
 const Context = createContext();
 
 const Provider = ({ children }) => {
-  // const [user,setUser] = useState(false)
-  // const data={
-  //   user,
-  //   setUser
-  // }
   const contacts = JSON.parse(localStorage.getItem("USERS")) || [];
   const [state, dispatch] = useReducer(ContactsReducer, contacts);
   const data = {

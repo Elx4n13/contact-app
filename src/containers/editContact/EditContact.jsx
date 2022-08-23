@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./EditContact.module.scss";
-import { Form, Button, Checkbox, Input, Select, Radio,Modal } from "antd";
+import { Form, Button, Checkbox, Input, Select, Radio, Modal } from "antd";
 import { useContacts } from "../../context";
 import { toast } from "react-toastify";
 import CountryPhoneInput, { ConfigProvider } from "antd-country-phone-input";
@@ -21,33 +21,33 @@ const EditContact = () => {
       cins: user.cins,
       email: user.email,
       phoneNumber: {
-        code: user.phoneNumber.code,
         phone: user.phoneNumber.phone,
-        short:user.phoneNumber.short,
+        code: user.phoneNumber.code,
+        short: user.phoneNumber.short,
       },
       qisaInfo: user.qisaInfo,
       soyad: user.soyad,
       vezife: user.vezife,
-      raziliq:user.raziliq
+      raziliq: user.raziliq,
     });
-  }, [form,state,userId]);
+  }, [form, state, userId]);
 
   const showModal = () => {
     setIsModalVisible(true);
   };
 
   const handleOk = () => {
-    const values = form.getFieldsValue()
+    const values = form.getFieldsValue();
     const newValues = {
-      id:parseInt(userId),
-      key:parseInt(userId),
-      ...values
-    }
+      id: parseInt(userId),
+      key: parseInt(userId),
+      ...values,
+    };
     dispatch({
       type: "UPDATE_CONTACT",
       payload: newValues,
     });
-    navigate('/');
+    navigate("/");
   };
 
   const handleCancel = () => {
@@ -55,11 +55,18 @@ const EditContact = () => {
   };
   const onFinish = (values) => {
     const user = state.find((item) => item.id === parseInt(userId));
-    console.log(`user${user.raziliq} values${values.raziliq}`)
-    if(values.ad===user.ad && values.soyad===user.soyad && values.ataAdi===user.ataAdi && user.cins === values.cins &&user.email===values.email && user.qisaInfo === values.qisaInfo && user.vezife===values.vezife &&user.phoneNumber.phone===values.phoneNumber.phone &&user.phoneNumber.code ===values.phoneNumber.code && user.raziliq === values.raziliq){
-      return toast.success('okeydi')
+    const checkValues = {
+      id: parseInt(userId),
+      key: parseInt(userId),
+      ...values,
+    };
+    if (!values.phoneNumber.phone) {
+      return toast.warning("Nomrenizi qeyd edin zehmet olmasa");
     }
-    showModal()
+    if (JSON.stringify(user) === JSON.stringify(checkValues)) {
+      return toast.warning("Deyishiklik etmelisiniz");
+    }
+    showModal();
   };
 
   const onChange = (e) => {
@@ -201,28 +208,43 @@ const EditContact = () => {
             autoSize
           />
         </Form.Item>
-        <Form.Item name="raziliq" className={styles.raziliq} valuePropName="checked">
+        <Form.Item
+          name="raziliq"
+          className={styles.raziliq}
+          valuePropName="checked"
+        >
           <Checkbox checked={checked} onChange={onChange}>
             Yeniliklər barədə məlumat almaq isdeyirem
           </Checkbox>
         </Form.Item>
         <Form.Item className={styles.addButton}>
           <div className={styles.buttons}>
-          <Button className={styles.editButton} type="dashed" htmlType="button" onClick={()=>{
-            navigate('/')
-          }}>
-            Cancel
-          </Button>
-          <Button className={styles.uptadeButton} type="primary" htmlType="submit">
-            Update
-          </Button>
-          <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
+            <Button
+              className={styles.editButton}
+              type="dashed"
+              htmlType="button"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              className={styles.uptadeButton}
+              type="primary"
+              htmlType="submit"
+            >
+              Update
+            </Button>
+            <Modal
+              title="Tesdiq Bildirimi"
+              visible={isModalVisible}
+              onOk={handleOk}
+              onCancel={handleCancel}
+            >
+              <p>Etdiyiniz deyishiklerin yadda saxlanilmasina eminsinizmi?</p>
+            </Modal>
           </div>
-         
         </Form.Item>
       </Form>
     </div>

@@ -7,11 +7,6 @@ import CountryPhoneInput, { ConfigProvider } from "antd-country-phone-input";
 import en from "world_countries_lists/data/countries/en/world.json";
 import { useNavigate } from "react-router-dom";
 const AddContact = () => {
-  // const onFill = () =>{
-  //   form.setFieldsValue({
-  //     ad:'Elxan'
-  //   })
-  // }
   const [checked, setChecked] = useState(true);
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -22,7 +17,7 @@ const AddContact = () => {
         code: 994,
         short: "AZ",
       },
-      raziliq:true
+      raziliq: true,
     });
   }, [form]);
 
@@ -36,9 +31,15 @@ const AddContact = () => {
   };
 
   const onFinish = (values) => {
-    console.log(values)
     const checkMail = state.find((user) => user.email === values.email);
-    const checkPhone = state.find((user)=> (user.phoneNumber.phone ===values.phoneNumber.phone) && (user.phoneNumber.code ===values.phoneNumber.code) )
+    const checkPhone = state.find(
+      (user) =>
+        user.phoneNumber.phone === values.phoneNumber.phone &&
+        user.phoneNumber.code === values.phoneNumber.code
+    );
+    if (!values.phoneNumber.phone) {
+      return toast.warning("Nomrenizi qeyd edin zehmet olmasa");
+    }
     if (checkPhone) {
       return toast.warning("Bu nomre var");
     }
@@ -48,13 +49,13 @@ const AddContact = () => {
     const newValues = {
       id: gentId(state),
       key: gentId(state),
-      ...values
+      ...values,
     };
     dispatch({
       type: "ADD_CONTACTS",
       payload: newValues,
     });
-    navigate(`/`)
+    navigate(`/`);
   };
 
   const onChange = (e) => {
@@ -111,16 +112,20 @@ const AddContact = () => {
         >
           <Input placeholder="Ata adinizi qeyd edin" />
         </Form.Item>
-        <Form.Item name='cins' label="Cins" rules={[{
-          required:true,
-          message:'Cinsinizi qeyd edin'
-        }]}>
-<Radio.Group value='kisi'>
-      <Radio value='kisi'>Kisi</Radio>
-      <Radio value='qadin'>Qadin</Radio>
-    </Radio.Group>
-
-
+        <Form.Item
+          name="cins"
+          label="Cins"
+          rules={[
+            {
+              required: true,
+              message: "Cinsinizi qeyd edin",
+            },
+          ]}
+        >
+          <Radio.Group value="kisi">
+            <Radio value="kisi">Kisi</Radio>
+            <Radio value="qadin">Qadin</Radio>
+          </Radio.Group>
         </Form.Item>
         <ConfigProvider locale={en}>
           <Form.Item
@@ -129,7 +134,6 @@ const AddContact = () => {
             rules={[
               {
                 required: true,
-                message: "Nomrenizi qeyd edin zehmet olmasa",
               },
             ]}
           >
@@ -177,16 +181,27 @@ const AddContact = () => {
             <Select.Option value="muellim">Muellim</Select.Option>
           </Select>
         </Form.Item>
-          <Form.Item name='qisaInfo' label="Haqqinda" rules={[{
-            required:true,
-            message:'Ozunuz haqqinda qisa melumat yazin zehmet olmasa'
-          }]}>
-            <Input.TextArea placeholder="Ozunuz haqqinda qisa melumat yazin zehmet olmasa" autoSize/>
-          </Form.Item>
+        <Form.Item
+          name="qisaInfo"
+          label="Haqqinda"
+          rules={[
+            {
+              required: true,
+              message: "Ozunuz haqqinda qisa melumat yazin zehmet olmasa",
+            },
+          ]}
+        >
+          <Input.TextArea
+            placeholder="Ozunuz haqqinda qisa melumat yazin zehmet olmasa"
+            autoSize
+          />
+        </Form.Item>
         <Form.Item
           name="raziliq"
-          className={styles.raziliq} valuePropName="checked">
-          <Checkbox checked={checked} onChange={onChange} >
+          className={styles.raziliq}
+          valuePropName="checked"
+        >
+          <Checkbox checked={checked} onChange={onChange}>
             Yeniliklər barədə məlumat almaq isdeyirem
           </Checkbox>
         </Form.Item>

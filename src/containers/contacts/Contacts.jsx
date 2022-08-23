@@ -9,10 +9,17 @@ import {
 import Info from "../../components/Info/info";
 import { useNavigate } from "react-router-dom";
 import { useContacts } from "../../context";
+import "./Contacts.css";
 const Contacts = () => {
   const navigate = useNavigate();
-  const { state } = useContacts();
-  const data = state.sort((a, b) => b.id - a.id);;
+  const { state, dispatch } = useContacts();
+  const data = state.sort((a, b) => b.id - a.id);
+  const deleteItem = (id) => {
+    dispatch({
+      type: "DELETE_CONTACT",
+      payload: id,
+    });
+  };
   const columns = [
     {
       title: "AD",
@@ -176,35 +183,41 @@ const Contacts = () => {
         return <SearchOutlined />;
       },
       onFilter: (value, record) => {
-        return record.ixtisas.toLowerCase().includes(value.toLowerCase());
+        return record.vezife.toLowerCase().includes(value.toLowerCase());
       },
     },
     {
       title: "Actions",
       render: (record) => {
         return (
-          <>
+          <div className={styles.iconsDiv}>
             <Info record={record} />
             <EditOutlined
               onClick={() => {
                 navigate(`/contacts/edit/${record.id}`);
               }}
+              className={styles.editIcon}
             />
-            <DeleteOutlined />
-          </>
+            <DeleteOutlined
+              className={styles.deleteIcon}
+              onClick={() => deleteItem(record.id)}
+            />
+          </div>
         );
       },
     },
   ];
   return (
     <div className={styles.contactContainer}>
-      <Table
-        dataSource={data}
-        columns={columns}
-        pagination={{
-          pageSize: 5,
-        }}
-      ></Table>
+      <div className={styles.tableContainer}>
+        <Table
+          dataSource={data}
+          columns={columns}
+          pagination={{
+            pageSize: 5,
+          }}
+        ></Table>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 export default function reducer(state, action) {
   switch (action.type) {
     case "ADD_CONTACTS":
-      state = [...state, action.payload];
+      state = [action.payload, ...state];
       localStorage.setItem("USERS", JSON.stringify(state));
       return state;
     case "UPDATE_CONTACT":
@@ -9,6 +9,10 @@ export default function reducer(state, action) {
         contact.id === action.payload.id ? action.payload : contact
       );
       state = updateState;
+      localStorage.setItem("USERS", JSON.stringify(state));
+      return state;
+    case "DELETE_CONTACT":
+      state = state.filter((item) => item.id !== action.payload);
       localStorage.setItem("USERS", JSON.stringify(state));
       return state;
     default:

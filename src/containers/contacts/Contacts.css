@@ -1,0 +1,25 @@
+.ant-table-tbody tr:nth-child(2n) {
+  background-color: #f5f5f5;
+}
+.ant-table-thead tr th:last-child {
+  text-align: center;
+}
+.ant-table-wrapper {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.ant-pagination {
+  margin-right: 10px !important;
+}
+.ant-table-thead tr th {
+  font-size: 1rem;
+  background-color: #8f8f8f;
+  color: white;
+}
+.ant-dropdown-trigger {
+  color: white;
+  font-size: 0.9rem;
+}
+.ant-dropdown-trigger:hover {
+  background-color: #8f8f8f;
+  color: yellow;
+}

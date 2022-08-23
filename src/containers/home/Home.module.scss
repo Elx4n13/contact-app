@@ -1,0 +1,103 @@
+body {
+  background-color: #e2e2e2;
+}
+.homeContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Lora", serif;
+  .cardsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .cards {
+      margin-top: 30px;
+      width: 70%;
+      flex-wrap: wrap;
+      display: flex;
+      .cardDiv {
+        flex: 0 0 47%;
+        display: flex;
+        align-items: center;
+        margin-right: 40px;
+        margin-bottom: 40px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+          rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+        &:nth-of-type(2n) {
+          margin-right: 0;
+        }
+        .imageDiv {
+          padding: 15px;
+          width: 200px;
+          margin-right: 5px;
+          img {
+            width: 100%;
+          }
+        }
+        .info {
+          border: 1px solid black;
+          height: fit-content;
+          width: 55%;
+          p {
+            margin: 0;
+            padding: 10px;
+            border-bottom: 1px solid black;
+            &:last-of-type {
+              border: none;
+            }
+            span {
+              font-weight: bold;
+            }
+          }
+        }
+        .icons {
+          display: flex;
+          flex-direction: column;
+          font-size: 1.5rem;
+          margin: 0 10px;
+          .infoIconDiv {
+            padding: 0 5px;
+            background-color: rgb(197, 197, 13);
+            margin-bottom: 8px;
+            border-radius: 5px;
+          }
+          .editIconDiv {
+            padding: 0 5px;
+            background-color: rgb(20, 20, 107);
+            color: white;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            &:hover {
+              background-color: rgb(59, 59, 202);
+              color: rgb(148, 133, 133);
+            }
+          }
+          .deleteIconDiv {
+            padding: 0 5px;
+            background-color: rgb(212, 0, 0);
+            color: white;
+            border-radius: 5px;
+            &:hover {
+              background-color: rgb(182, 134, 134);
+              color: red;
+            }
+          }
+        }
+      }
+    }
+  }
+  .buttonDiv {
+    display: flex;
+    justify-content: flex-end;
+    width: 67%;
+    button {
+      font-size: 1.2rem;
+      padding: 1.2rem;
+      display: flex;
+      align-items: center;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.contactContainer {
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  .tableContainer {
+    width: 70%;
+    .searchIcon {
+      color: white;
+    }
+    .iconsDiv {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      font-size: 1.1rem;
+      .editIcon {
+        margin-left: 5px;
+        margin-right: 5px;
+        &:hover {
+          color: blue;
+        }
+      }
+      .deleteIcon {
+        &:hover {
+          color: red;
+        }
+      }
+    }
+  }
+}

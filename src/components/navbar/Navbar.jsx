@@ -8,7 +8,9 @@ const Navbar = () => {
     <div className={styles.header}>
       <div className={styles.navbar}>
         <div className={styles.left}>
-          <Link to='/'><h1>CONTACT APP</h1></Link>
+          <Link to="/">
+            <h1>CONTACT APP</h1>
+          </Link>
         </div>
         <div className={styles.right}>
           <Link to="/contacts/new">
