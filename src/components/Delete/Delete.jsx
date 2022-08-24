@@ -28,11 +28,13 @@ const Delete = ({ id }) => {
     <>
       <DeleteOutlined className={styles.deleteIcon} onClick={showModal} />
       <Modal
-        title={`tesdiq`}
+        title={`Tesdiq`}
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-      ></Modal>
+      >
+        <p>Silmek istediyinize eminsinizmi?</p>
+      </Modal>
     </>
   );
 };
